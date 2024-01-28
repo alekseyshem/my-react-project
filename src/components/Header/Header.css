@@ -1,0 +1,17 @@
+.header {
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  background-color: rgb(31, 31, 31);
+}
+
+.header__item {
+  margin: 20px;
+  color: azure;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
