@@ -1,0 +1,24 @@
+.list-item {
+  border-bottom: 1px solid rgba(5, 5, 5, 0.09);
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-item__content {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: large;
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.date {
+  padding-right: 12px;
+}
+

@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 
 const SecondPage = () => {
-  const { id } = useParams();
+  const {id} = useParams();
+  // console.log(id)
   return <>{id}</>;
 };
 
