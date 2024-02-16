@@ -1,19 +1,13 @@
+import Post from "../../dto/Post";
 import ListItem from "../ListItem/ListItem";
 import "./List.css";
 import { memo } from "react";
 
 interface ListProps {
-  posts: Array<TodoPost>;
+  posts: Array<Post>;
   onDeletePost: (id: number) => void;
 }
 
-export interface TodoPost {
-  title: string;
-  description: string;
-  id: number;
-  date: string;
-  lastChange: string;
-}
 
 const List = memo(({ posts, onDeletePost }: ListProps) => {
   return posts.length ? (

@@ -1,36 +1,27 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import List from "../../components/List/List";
 import "./HomePage.css";
+import { useLoadPosts } from "../../hooks/useLoadPosts";
 
 const HomePage = () => {
-  const [posts, setPosts] = useState([
-    {
-      title: "name",
-      description: "description",
-      id: 1,
-      date: new Date().toLocaleDateString("ru-RU"),
-      lastChange: new Date().toLocaleDateString("ru-RU"),
-    },
-    {
-      title: "name",
-      description: "description",
-      id: 2,
-      date: new Date().toLocaleDateString("ru-RU"),
-      lastChange: new Date().toLocaleDateString("ru-RU"),
-    },
-  ]);
-
+  const { posts, setPosts } = useLoadPosts();
   const onDeletePost = useCallback(
     (id: number) => {
-      setPosts(posts.filter((item) => item.id !== id));
+      if (posts) {
+        setPosts(posts.filter((item) => item.id !== id));
+      }
     },
-    [posts]
+    [posts, setPosts]
   );
 
   return (
     <div className="homepage">
       HomePage
-      <List posts={posts} onDeletePost={onDeletePost} />
+      {posts ? (
+        <List posts={posts} onDeletePost={onDeletePost} />
+      ) : (
+        <div>1234</div>
+      )}
     </div>
   );
 };
