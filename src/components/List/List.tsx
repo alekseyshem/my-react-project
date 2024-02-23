@@ -12,8 +12,8 @@ interface ListProps {
 const List = memo(({ posts, onDeletePost }: ListProps) => {
   return posts.length ? (
     <ul className="list">
-      {posts.map((item) => (
-        <ListItem post={item} key={item.id} onDeletePost={onDeletePost} />
+      {posts.map((post) => (
+        <ListItem post={post} key={post.id} onDeletePost={onDeletePost} />
       ))}
     </ul>
   ) : (
