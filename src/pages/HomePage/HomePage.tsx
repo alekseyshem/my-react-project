@@ -1,27 +1,29 @@
 import List from "../../components/List/List";
 import "./HomePage.css";
 import { useLoadPosts } from "../../hooks/useLoadPosts";
+import Pagination from "../../components/Pagination/Pagination";
 
 const HomePage = () => {
-  const { posts, isLoading} = useLoadPosts();
+  const { posts, totalPosts, isLoading, pageSize, currentPage } = useLoadPosts();
   const onDeletePost = () => {};
-  // const onDeletePost = useCallback(
-  //   (id: number) => {
-  //     if (posts) {
-  //       setPosts(posts.filter((item) => item.id !== id));
-  //     }
-  //   },
-  //   [posts, setPosts]
-  // );
 
   return (
     <div className="homepage">
-      {isLoading}
-      HomePage
-      {posts ? (
-        <List posts={posts} onDeletePost={onDeletePost} />
+      {isLoading ? (
+        <div>абаждити ПЛЕС</div>
       ) : (
-        <div>1234</div>
+        posts && (
+          <div>
+            {currentPage && !!totalPosts && (
+              <Pagination total={totalPosts} pageSize={pageSize} currentPage={currentPage} />
+            )}
+            {posts.length ? (
+              <List posts={posts} onDeletePost={onDeletePost} />
+            ) : (
+              <div>Нет записей</div>
+            )}
+          </div>
+        )
       )}
     </div>
   );
