@@ -2,10 +2,22 @@ import List from "../../components/List/List";
 import "./HomePage.css";
 import { useLoadPosts } from "../../hooks/useLoadPosts";
 import Pagination from "../../components/Pagination/Pagination";
+import { useDispatch } from "react-redux";
+import { closeModal, openModal } from "./homePageSlice";
+import { useCallback} from "react";
+import DeletePostModal from "../../components/DeletePostModal/DeletePostModal";
 
 const HomePage = () => {
   const { posts, totalPosts, isLoading, pageSize, currentPage } = useLoadPosts();
-  const onDeletePost = () => {};
+  const dispatch = useDispatch();
+
+  const onDeletePost = (id: number) => {
+    dispatch(openModal(id));
+  };
+
+  const onCloseModal = useCallback(() => {
+    dispatch(closeModal());
+  }, [dispatch]);
 
   return (
     <div className="homepage">
@@ -25,8 +37,19 @@ const HomePage = () => {
           </div>
         )
       )}
+      <DeletePostModal onCloseModal={onCloseModal} />
     </div>
   );
 };
 
 export default HomePage;
+
+// () => {}
+// () => ()
+// asdf => asdf + 1
+
+// const f = (arg) => {return 1}
+// const f = () => 1
+// const f = () => {return {}}
+// const f =() => ({})
+// const f = () => {} //без ретурна

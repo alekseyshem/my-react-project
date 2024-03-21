@@ -20,13 +20,6 @@ const useLoadPosts = () => {
   const page = searchParams.get("page");
   const dispatch = useDispatch();
 
-  // const showSortedItems = (page: number) => {
-  //   dispatch(loadPosts({ pageSize: 2, page }));
-  // };
-  // useEffect(() => {
-  //   dispatch(loadPosts({ pageSize: 2, page: 1 }));
-  // }, [dispatch]);
-
   useEffect(() => {
     if (page) {
       dispatch(loadPosts({ pageSize, page: +page }));
@@ -35,16 +28,7 @@ const useLoadPosts = () => {
     }
   }, [dispatch, pageSize, page]);
 
-  // useEffect(() => {
-  //   if (page <= totalPages ) {
-  //     dispatch(loadPosts({ pageSize, page: +page }));
-  //   } else {
-  //     dispatch(loadPosts({ pageSize, page: 1 }));
-  //     navigate("/");
-  //   }
-  // }, [dispatch, pageSize, page]);
-
-  return { posts, totalPosts, isLoading, pageSize, currentPage };
+  return { posts, totalPosts, isLoading, pageSize, currentPage, page };
 };
 
 export { useLoadPosts };

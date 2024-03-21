@@ -3,11 +3,13 @@ import "./Button.css";
 
 interface ButtonProps {
   title: string;
-  type?: "default" |"blue" | "red";
+  type?: "default" | "blue" | "red" | "disabled";
+  isLoading?: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
-const Button = memo(({ title, type = "default", onClick }: ButtonProps) => {
+const Button = memo(({ title, type = "default", isLoading, onClick }: ButtonProps) => {
+  const loadingButton = isLoading ? `button--loading ` : "";
   let className;
   switch (type) {
     case "blue":
@@ -19,9 +21,8 @@ const Button = memo(({ title, type = "default", onClick }: ButtonProps) => {
     default:
       className = "button--default";
   }
-
   return (
-    <button className={`button ` + className} onClick={onClick}>
+    <button className={`button ` + loadingButton + className} onClick={onClick}>
       {title}
     </button>
   );

@@ -10,21 +10,22 @@ interface ListItemProps {
 }
 
 const ListItem = memo(({ post, onDeletePost }: ListItemProps) => {
-
+  const onDelete = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    onDeletePost(post.id);
+  },
+  [onDeletePost, post.id])
   return (
     <li className="list-item">
       <Link to={`/task/${post.id}`} className="list-item__content">
         <div className="title">{post.title}</div>
         <div className="date">добавлено: {post.createdAt.format("D MMMM YYYY")}</div>
         <div className="date">изменено: {post.updatedAt.format("D MMMM YYYY")}</div>
-          <Button
-            title="delete" 
-            type="red"
-            onClick={useCallback((e) => {
-              e.preventDefault()
-              onDeletePost(post.id);
-            }, [onDeletePost, post.id])}
-          />
+        <Button
+          title="delete"
+          type="red"
+          onClick={onDelete}
+        />
       </Link>
     </li>
   );

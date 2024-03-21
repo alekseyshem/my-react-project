@@ -10,7 +10,7 @@
 }
 
 .button--red {
-  color:#ff4d4f;
+  color: #ff4d4f;
   border: 1px solid #ff4d4f;
 }
 
@@ -22,8 +22,8 @@
 .button--default {
   background-color: #fff;
   border-color: #d9d9d9;
-  color: rgba(0,0,0,.88);
-  box-shadow: 0 2px 0 rgba(0,0,0,.02);
+  color: rgba(0, 0, 0, 0.88);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
 }
 
 .button--default:hover {
@@ -34,10 +34,49 @@
 .button--blue {
   color: #fff;
   background-color: #1677ff;
-  box-shadow: 0 2px 0 rgba(5,145,255,.1);
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
 }
 
 .button--blue:hover {
   color: #fff;
   background-color: #4096ff;
+}
+
+.button--loading {
+  color: #fff;
+  background-color: #4096ff;
+  transition: 3s;
+  &:before {
+    content: "";
+    display: inline-flex;
+    margin-right: 12px;
+    margin-left: -4px;
+    width: 12px;
+    height: 12px;
+    border: 2px solid;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-radius: 50%;
+    transition: opacity 0.5s;
+    animation: 1s linear infinite rotate;
+  }
+  &.sending {
+    pointer-events: none;
+    cursor: not-allowed;
+
+    &:before {
+      transition-delay: 0.5s;
+      transition-duration: 1s;
+      opacity: 1;
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

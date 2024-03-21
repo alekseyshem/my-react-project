@@ -7,21 +7,38 @@ interface InitialState {
   isLoading: boolean;
   pageSize: number;
   page: number | undefined;
+  isOpenDeletePostModal: boolean;
+  isDeleteLoading: boolean;
+  deletePostId: number | undefined;
 }
 
 const initialState: InitialState = {
   posts: undefined,
   totalPosts: undefined,
   isLoading: true,
-  pageSize: 3,
+  pageSize: 2,
   page: undefined,
+  isOpenDeletePostModal: false,
+  isDeleteLoading: false,
+  deletePostId: undefined
 };
 
 export const postsSlice = createSlice({
   name: "posts",
   initialState: initialState,
   reducers: {
-    delPost() {},
+    openModal(state, action) {
+      state.isOpenDeletePostModal = true;
+      state.deletePostId = action.payload
+    },
+    closeModal(state) {
+      state.isOpenDeletePostModal = false;
+      state.isDeleteLoading = false;
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    deletePost(state, action: PayloadAction<number>) {
+      state.isDeleteLoading = true;
+    },
     loadPosts: (state, action: PayloadAction<{ pageSize: number; page: number }>) => {
       state.isLoading = true;
       state.pageSize = action.payload.pageSize;
@@ -35,5 +52,11 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { delPost, loadPosts, loadPostsSuccess } = postsSlice.actions;
+export const {
+  deletePost,
+  loadPosts,
+  loadPostsSuccess,
+  openModal,
+  closeModal,
+} = postsSlice.actions;
 export default postsSlice.reducer;

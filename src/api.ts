@@ -46,17 +46,38 @@ const posts = [
   },
 ];
 
-export function loadPostsApi(pageSize: number, page: number): Promise<{ posts: Array<Post>; totalPosts: number }> {
+export function loadPostsApi(
+  pageSize: number,
+  page: number
+): Promise<{ posts: Array<Post>; totalPosts: number }> {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (posts.length / pageSize + 1 >= page) {
+      if (Math.ceil(posts.length / pageSize) >= page || (posts.length === 0 && page === 1)) {
         resolve({
-          posts: posts.filter((_, index) => index <= pageSize * page - 1 && index > (page - 1) * pageSize - 1),
+          posts: posts.filter(
+            (_, index) => index <= pageSize * page - 1 && index > (page - 1) * pageSize - 1
+          ),
           totalPosts: posts.length,
         });
       } else {
         reject();
       }
-    }, 1500);
+    }, 1000);
+  });
+}
+
+export function deletePostApi(id: number) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (posts.find((post) => post.id === id)) {
+        const index = posts.findIndex((post) => post.id === id);
+        if (index !== -1) {
+          posts.splice(index, 1);
+        }
+        resolve(id);
+      } else {
+        reject();
+      }
+    }, 1000);
   });
 }
