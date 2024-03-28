@@ -1,46 +1,47 @@
 import dayjs from "dayjs";
 import Post from "./dto/Post";
+import { v4 as uuidv4 } from "uuid";
 
 const posts = [
   {
     title: "name 1",
     description: "description",
-    id: 1,
+    id: "1",
     createdAt: dayjs(),
     updatedAt: dayjs(),
   },
   {
     title: "name 2",
     description: "description",
-    id: 2,
+    id: "2",
     createdAt: dayjs(),
     updatedAt: dayjs(),
   },
   {
     title: "name 3",
     description: "description",
-    id: 3,
+    id: "3",
     createdAt: dayjs(),
     updatedAt: dayjs(),
   },
   {
     title: "name 4",
     description: "description",
-    id: 4,
+    id: "4",
     createdAt: dayjs(),
     updatedAt: dayjs(),
   },
   {
     title: "name 5",
     description: "description",
-    id: 5,
+    id: "5",
     createdAt: dayjs(),
     updatedAt: dayjs(),
   },
   {
     title: "name 6",
     description: "description",
-    id: 6,
+    id: "6",
     createdAt: dayjs(),
     updatedAt: dayjs(),
   },
@@ -62,11 +63,11 @@ export function loadPostsApi(
       } else {
         reject();
       }
-    }, 1000);
+    }, 500);
   });
 }
 
-export function deletePostApi(id: number) {
+export function deletePostApi(id: string) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       if (posts.find((post) => post.id === id)) {
@@ -75,6 +76,24 @@ export function deletePostApi(id: number) {
           posts.splice(index, 1);
         }
         resolve(id);
+      } else {
+        reject();
+      }
+    }, 1000);
+  });
+}
+
+export function addPostApi(post: Pick<Post, "title" | "description">) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (post.title) {
+        posts.push({
+          ...post,
+          id: uuidv4(),
+          createdAt: dayjs(),
+          updatedAt: dayjs(),
+        });
+        resolve(post);
       } else {
         reject();
       }

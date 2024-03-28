@@ -1,28 +1,30 @@
 import { memo } from "react";
 import "./Button.css";
+import classNames from "classnames";
 
 interface ButtonProps {
   title: string;
-  type?: "default" | "blue" | "red" | "disabled";
+  type?: "default" | "blue" | "red";
   isLoading?: boolean;
   onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const Button = memo(({ title, type = "default", isLoading, onClick }: ButtonProps) => {
-  const loadingButton = isLoading ? `button--loading ` : "";
-  let className;
-  switch (type) {
-    case "blue":
-      className = "button--blue";
-      break;
-    case "red":
-      className = "button--red";
-      break;
-    default:
-      className = "button--default";
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if(!isLoading) {
+      onClick(e)
+    }
   }
   return (
-    <button className={`button ` + loadingButton + className} onClick={onClick}>
+    <button
+      className={classNames("button", {
+        "button--loading": isLoading,
+        "button--blue": type === "blue",
+        "button--red": type === "red",
+        "button--default": type === "default",
+      })}
+      onClick={handleClick}
+    >
       {title}
     </button>
   );

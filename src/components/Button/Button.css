@@ -43,6 +43,7 @@
 }
 
 .button--loading {
+  cursor: progress;
   color: #fff;
   background-color: #4096ff;
   transition: 3s;

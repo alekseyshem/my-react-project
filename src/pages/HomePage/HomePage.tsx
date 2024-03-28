@@ -3,20 +3,30 @@ import "./HomePage.css";
 import { useLoadPosts } from "../../hooks/useLoadPosts";
 import Pagination from "../../components/Pagination/Pagination";
 import { useDispatch } from "react-redux";
-import { closeModal, openModal } from "./homePageSlice";
-import { useCallback} from "react";
+import { closeAddModal, closeDeleteModal, openAddModal, openDeleteModal } from "./homePageSlice";
+import { useCallback } from "react";
 import DeletePostModal from "../../components/DeletePostModal/DeletePostModal";
+import AddPostModal from "../../components/AddPostModal/AddPostModal";
+import Button from "../../components/Button/Button";
 
 const HomePage = () => {
   const { posts, totalPosts, isLoading, pageSize, currentPage } = useLoadPosts();
   const dispatch = useDispatch();
 
-  const onDeletePost = (id: number) => {
-    dispatch(openModal(id));
+  const onOpenDeletePost = (id: string) => {
+    dispatch(openDeleteModal(id));
   };
 
-  const onCloseModal = useCallback(() => {
-    dispatch(closeModal());
+  const onCloseDeleteModal = useCallback(() => {
+    dispatch(closeDeleteModal());
+  }, [dispatch]);
+
+  const onOpenAddModal = useCallback(() => {
+    dispatch(openAddModal());
+  }, [dispatch]);
+
+  const onCloseAddModal = useCallback(() => {
+    dispatch(closeAddModal());
   }, [dispatch]);
 
   return (
@@ -27,29 +37,25 @@ const HomePage = () => {
         posts && (
           <div>
             {currentPage && !!totalPosts && (
-              <Pagination total={totalPosts} pageSize={pageSize} currentPage={currentPage} />
+              <div className="homepage__header">
+                <Pagination total={totalPosts} pageSize={pageSize} currentPage={currentPage} />
+                <div>
+                  <Button title="create post" type="blue" onClick={onOpenAddModal} />
+                </div>
+              </div>
             )}
             {posts.length ? (
-              <List posts={posts} onDeletePost={onDeletePost} />
+              <List posts={posts} onDeletePost={onOpenDeletePost} />
             ) : (
               <div>Нет записей</div>
             )}
           </div>
         )
       )}
-      <DeletePostModal onCloseModal={onCloseModal} />
+      <AddPostModal onCloseModal={onCloseAddModal} />
+      <DeletePostModal onCloseModal={onCloseDeleteModal} />
     </div>
   );
 };
 
 export default HomePage;
-
-// () => {}
-// () => ()
-// asdf => asdf + 1
-
-// const f = (arg) => {return 1}
-// const f = () => 1
-// const f = () => {return {}}
-// const f =() => ({})
-// const f = () => {} //без ретурна

@@ -5,7 +5,7 @@ import { memo } from "react";
 
 interface ListProps {
   posts: Array<Post>;
-  onDeletePost: (id: number) => void;
+  onDeletePost: (id: string) => void;
 }
 
 

@@ -11,3 +11,5 @@ export const makeSelectPage = createDraftSafeSelector(selectPosts, (state) => st
 export const makeSelectIsOpenDeletePostModal = createDraftSafeSelector(selectPosts, (state) => state.isOpenDeletePostModal);
 export const makeSelectIsDeleteLoading = createDraftSafeSelector(selectPosts, (state) => state.isDeleteLoading);
 export const makeSelectDeletePostId = createDraftSafeSelector(selectPosts, (state) => state.deletePostId);
+export const makeSelectIsOpenAddPostModal = createDraftSafeSelector(selectPosts, (state) => state.isOpenAddPostModal);
+export const makeSelectIsAddPostLoading = createDraftSafeSelector(selectPosts, (state) => state.isAddPostLoading);
