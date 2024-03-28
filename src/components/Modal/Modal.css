@@ -21,21 +21,9 @@
   padding: 24px;
   border-radius: 8px;
   background-color: white;
-  height: 120px;
+  min-height: 120px;
   width: 320px;
   display: flex;
   flex-direction: column;
-  text-align: center;
   margin-bottom: 200px;
-}
-
-.modal__text {
-  flex-grow: 1;
-  margin: 8px;
-}
-
-.modal__buttons {
-  display: flex;
-  justify-content: space-between;
-  margin: 8px;
 }

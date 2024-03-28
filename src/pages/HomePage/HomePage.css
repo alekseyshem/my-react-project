@@ -1,7 +1,14 @@
 .homepage {
+  height: 100%;
   width: 900px;
   padding: 24px;
   border-radius: 8px;
-  margin: 12px auto;
+  margin: 0px auto;
   background-color: white;
+  overflow: auto;
+}
+
+.homepage__header {
+  display: flex;
+  justify-content: space-between;
 }

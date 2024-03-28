@@ -8,8 +8,10 @@ interface InitialState {
   pageSize: number;
   page: number | undefined;
   isOpenDeletePostModal: boolean;
+  isOpenAddPostModal: boolean;
   isDeleteLoading: boolean;
-  deletePostId: number | undefined;
+  isAddPostLoading: boolean;
+  deletePostId: string | undefined;
 }
 
 const initialState: InitialState = {
@@ -19,25 +21,51 @@ const initialState: InitialState = {
   pageSize: 2,
   page: undefined,
   isOpenDeletePostModal: false,
+  isOpenAddPostModal: false,
   isDeleteLoading: false,
-  deletePostId: undefined
+  isAddPostLoading: false,
+  deletePostId: undefined,
 };
 
 export const postsSlice = createSlice({
   name: "posts",
   initialState: initialState,
   reducers: {
-    openModal(state, action) {
+    openDeleteModal(state, action) {
       state.isOpenDeletePostModal = true;
-      state.deletePostId = action.payload
+      state.deletePostId = action.payload;
     },
-    closeModal(state) {
+    closeDeleteModal(state) {
+      if (!state.isDeleteLoading) {
+        state.isOpenDeletePostModal = false;
+      }
+    },
+    deletePostSuccess: (state) => {
       state.isOpenDeletePostModal = false;
       state.isDeleteLoading = false;
     },
+
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    deletePost(state, action: PayloadAction<number>) {
+    deletePost(state, _action: PayloadAction<string>) {
       state.isDeleteLoading = true;
+    },
+    openAddModal: (state) => {
+      state.isOpenAddPostModal = true;
+    },
+
+    closeAddModal: (state) => {
+      if (!state.isAddPostLoading) {
+        state.isOpenAddPostModal = false;
+      }
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    addPost: (state, _action: PayloadAction<{title: string, description: string}>) => {
+      state.isAddPostLoading = true;
+    },
+
+    addPostSuccess: (state) => {
+      state.isOpenAddPostModal = false;
+      state.isAddPostLoading = false;
     },
     loadPosts: (state, action: PayloadAction<{ pageSize: number; page: number }>) => {
       state.isLoading = true;
@@ -55,8 +83,13 @@ export const postsSlice = createSlice({
 export const {
   deletePost,
   loadPosts,
+  addPost,
   loadPostsSuccess,
-  openModal,
-  closeModal,
+  openDeleteModal,
+  closeDeleteModal,
+  openAddModal,
+  closeAddModal,
+  deletePostSuccess,
+  addPostSuccess,
 } = postsSlice.actions;
 export default postsSlice.reducer;

@@ -1,0 +1,51 @@
+.input__field {
+  margin-bottom: 4px;
+  padding: 6px 12px;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 12px;
+  line-height: 1.5714285714285714;
+  width: 100%;
+  background-color: #fff;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #d9d9d9;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.input__field:focus-visible {
+  outline: none;
+}
+.input__field:hover {
+  border-color: #4096ff;
+}
+
+.input__field:focus {
+  border-color: #1677ff;
+}
+
+.input__field--error:focus-visible {
+  outline: none;
+}
+
+.input__field--error {
+  border-color: #ff4d4f;
+}
+
+.input__field--error:hover {
+  border-color: #ffa39e;
+}
+
+.input__field--error:focus {
+  border-color: #ff4d4f;
+}
+
+.input__message {
+  font-size: 12px;
+  margin: 2px;
+  color: #ff4d4f;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

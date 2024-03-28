@@ -1,0 +1,5 @@
+.add-post-modal__buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px;
+}

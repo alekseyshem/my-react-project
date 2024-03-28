@@ -1,7 +1,7 @@
 import { call, fork, put, select, take, takeEvery } from "redux-saga/effects";
-import { closeModal, deletePost, loadPostsSuccess } from "./homePageSlice";
+import { addPost, addPostSuccess, deletePost, deletePostSuccess, loadPostsSuccess } from "./homePageSlice";
 import { loadPosts } from "./homePageSlice";
-import { deletePostApi, loadPostsApi } from "../../api";
+import { addPostApi, deletePostApi, loadPostsApi } from "../../api";
 import Post from "../../dto/Post";
 import { history } from "../../main";
 import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
@@ -31,11 +31,21 @@ function* deletePostSaga(action: ReturnType<typeof deletePost>) {
   const posts: Array<Post> = yield select(makeSelectPosts);
 
   yield call(deletePostApi, action.payload);
-  yield put(closeModal());
+  yield put(deletePostSuccess())
   yield put(loadPosts({ pageSize, page: posts.length != 1 ? page : 1 }));
+}
+
+function* addPostSaga(action: ReturnType<typeof addPost>) {
+  const page: number = yield select(makeSelectPage);
+  const pageSize: number = yield select(makeSelectPageSize);
+
+  yield call(addPostApi, action.payload)
+  yield put(addPostSuccess())
+  yield put(loadPosts({ pageSize, page}));
 }
 
 export default function* homeSaga() {
   yield fork(loadPostsSaga);
   yield takeEvery(deletePost.type, deletePostSaga);
+  yield takeEvery(addPost.type, addPostSaga)
 }
